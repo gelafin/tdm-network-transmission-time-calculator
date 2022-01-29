@@ -15,7 +15,7 @@ def calculate_circuit_switched_transmission_time(file_size_in_bytes: int, rate_i
     """
     # convert units
     file_size_in_bits = file_size_in_bytes * 8
-    rate_in_bps = rate_in_Gbps * 1000 * 1000 * 1000 / 15  # Gbps to bps shared by 15 users
+    rate_in_bps = rate_in_Gbps * 1000 * 1000 * 1000 / total_users_sharing  # Gbps to bps shared by 15 users
 
     # calculate transmission time
     transmission_time_in_ms = file_size_in_bits / rate_in_bps * 1000 + setup_time_in_ms  # * 1000 to convert to ms
@@ -27,6 +27,12 @@ if __name__ == '__main__':
     # test
     file_size_in_MiB = 9  # set to None if entering file_size_in_bytes
     file_size_in_bytes = None  # set to None if entering file_size_in_MiB
+    rate_in_Gbps = 47.7
+    total_users_sharing = 15
+    setup_time_in_ms = 58.3
+
     file_size_in_bytes = file_size_in_MiB * 1024 * 1024 if file_size_in_MiB is not None else file_size_in_bytes
-    result = calculate_circuit_switched_transmission_time(file_size_in_bytes, 47.7, 58.3, 15)
+    result = calculate_circuit_switched_transmission_time(file_size_in_bytes, rate_in_Gbps,
+                                                          setup_time_in_ms, total_users_sharing
+                                                          )
     print('\ntransmission time: ', result)
